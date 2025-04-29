@@ -21,10 +21,18 @@ public class ArrayController {
         try {
             return ResponseEntity.ok(arrayService.analyzeTemperatures(temperatures));
         } catch (IllegalArgumentException e) {
-                        return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     //2D Array endpoint
     @PostMapping("/transpose")
-    public int[][] transposematrix(@RequestBody int[][] matrix) { return arrayService.transposeMatrix(matrix);}
+    public ResponseEntity <int[][]> transposematrix(@RequestBody int[][] matrix) {
+        try {
+            int[][] transposed = arrayService.transposeMatrix(matrix);
+            return ResponseEntity.ok(transposed);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }

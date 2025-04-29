@@ -1,7 +1,7 @@
 package com.example.arraysdemo.service;
 
 import org.springframework.stereotype.Service;
-
+import java.util.Map;
 @Service
 public class ArrayService {
 
@@ -63,4 +63,51 @@ public int[][] rotateImage(int[][] image) {
     }
     return rotated;
 }
+
+    public Object analyzeTemperatures(double[] temperatures) {
+                if( temperatures == null || temperatures.length == 0){
+                    throw new IllegalArgumentException("Temperature array cannot be empty");
+                }
+
+                double max = temperatures[0];
+                double min = temperatures[0];
+                double sum = 0;
+
+                for (double temp : temperatures) {
+                    if (temp > max){
+                        max=temp;
+                    }
+                    if (temp < min){
+                        min=temp;
+
+                    }
+                    sum += temp;
+                }
+
+                double average = sum / temperatures.length;
+
+                return Map.of(
+                        "max", max,
+                        "min", min,
+                        "average", average
+                );
+    }
+// transpose matrix methode
+    public int[][] transposeMatrix(int[][] matrix) {
+                if (matrix == null || matrix.length == 0){
+                    throw new IllegalArgumentException("Matrix cannot be empty");
+                }
+
+                int rows = matrix.length;
+                int cols = matrix[0].length;
+                int[][]transposed = new int [cols][rows];
+
+                for (int i=0; i<rows; i++) {
+                    for(int j=0; j <cols; j++){
+                        transposed[j][i]= matrix [i][j];
+                    }
+                }
+
+                return transposed;
+    }
 }
